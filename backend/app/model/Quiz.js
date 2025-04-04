@@ -1,43 +1,17 @@
-import mongoose from "mongoose";
+// Quiz.js
+import mongoose from 'mongoose';
 
-let quizSchema = newmongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    questions: [
-        {
-            question: {
-                type: String,
-                required: true,
-                trim: true,
-            },
-            options: {
-                type: [String],
-                required: true,
-            },
-            correctAnswer: {
-                type: String, 
-                required: true,
-                trim: true,
-            },   
-        },
-    ],
-    category: {
-        type: String,
-        trim: true,
-    },
-    totalQuestions: {
-        type: Number,
-        required: true,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    }
+const questionSchema = new mongoose.Schema({
+  question: String,
+  options: [String],
+  correctAnswer: Number, //index of correct option
 });
 
-const Quiz = mongoose.model('Quiz', quizSchema);
+const quizSchema = new mongoose.Schema({
+  title: String,
+  category: String,
+  totalQuestions: Number,
+  questions: [questionSchema],
+});
 
-export default Quiz;
+export default mongoose.model('Quiz', quizSchema);

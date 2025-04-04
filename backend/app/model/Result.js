@@ -4,7 +4,7 @@ const resultSchema = newmongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        default: 'N/A',
     },
     quizId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -14,29 +14,16 @@ const resultSchema = newmongoose.Schema({
     score: {
         type: Number,
         required: true,
-    },
-    attemptedQuestions: [
-        {
-            questionId: {
-                type: mongoose.Schema.Types.ObjectId,
-                required: true,
-            },
-            selectedAnswer: {
-                type: String,
-                required: true,
-            },
-            isCorrect: {
-                type: Boolean,
-                required: true,
-            }
-        }
-    ],
-    completedAt: {
+      },
+      total: {
+        type: Number,
+        required: true,
+      },
+      answers: [Number], 
+      submittedAt: {
         type: Date,
         default: Date.now,
-    }
-});
+      },
+    });
 
-const Result = mongoose.model('Result', resultSchema);
-
-export default Result;
+export default mongoose.model('Result', resultSchema);
