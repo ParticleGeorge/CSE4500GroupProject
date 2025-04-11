@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Title plus nav menu-->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Online Quizzes</title>
+  <title>Login - Online Quizzes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+<!-- login page -->
 <body>
   <header>
     <nav class="navbar">
       <div class="logo">Online Quizzes</div>
       <ul class="nav-links">
         <li><a href="login.html">Login</a></li>
-        <li><a href="#">Register</a></li>
-        <li><a href="#">Take Quiz</a></li>
-        <li><a href="#">Link 4</a></li>
-        <li><a href="#">Link 5</a></li>
+        <li><a href="index.html">Home</a></li>
       </ul>
     </nav>
   </header>
-<!-- centered title-->
+
   <main>
-    <h1 class="welcome">Welcome to Online Quizzes!</h1>
+    <form class="login-form">
+      <h2>Login</h2>
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
   </main>
 </body>
 </html>
