@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const resultSchema = newmongoose.Schema({
+const resultSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        default: 'N/A',
+        required: false,
     },
     quizId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -14,16 +14,19 @@ const resultSchema = newmongoose.Schema({
     score: {
         type: Number,
         required: true,
-      },
-      total: {
+    },
+    total: {
         type: Number,
         required: true,
-      },
-      answers: [Number], 
-      submittedAt: {
+    },
+    answers: [{
+        questionIndex: Number,
+        selectedOption: Number
+    }],
+    submittedAt: {
         type: Date,
         default: Date.now,
-      },
+    },
     });
 
 export default mongoose.model('Result', resultSchema);

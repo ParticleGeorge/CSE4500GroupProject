@@ -1,5 +1,9 @@
 import User from '../model/User.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const register = async (req, res) => {
     try {
@@ -67,12 +71,28 @@ const login = async (req, res) => {
             return res.status(401).json({ error: 'User not found. Please try again or create an account.'});
         }
 
-        const isPasswordValid = await bcrypt.compare(password, User.passwordDigest);
+        const isPasswordValid = await bcrypt.compare(password, foundUser.passwordDigest);
         if (!isPasswordValid) {
             return res.status(401).json({ error: 'Invalid username or password. Please try again.' });
         }
 
-        res.status(200).json({ message: 'Login successful.', UserId: User._id });
+    //create jwt
+    const token = jwt.sign(
+        { id: foundUser._id, username: foundUser.username },
+        process.env.SECRET_KEY,
+        { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
+    
+    res.status(200).json({ message: 'Login successful.', 
+        token,
+        user: {
+            userId: foundUser._id,
+            username: foundUser.username,
+            email: foundUser.email,
+            firstName: foundUser.firstName,
+            lastName: foundUser.lastName,
+        }
+    });
     } catch(error) {
         console.error(error);
         res.status(500).json({ error: 'An error occured during login. Please try again.'})
@@ -83,11 +103,11 @@ const getUserById = async (req, res) => {
     try {
         const{ id } = req.params;
 
-        const User = await User.findById(id).select('-passwordDigest');
-        if (!User) {
+        const user = await User.findById(id).select('-passwordDigest');
+        if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
-
+        
         res.status(200).json(User);
     }  catch (error) {
         console.error(error);

@@ -2,8 +2,8 @@ import Quiz from '../model/Quiz.js';
 
 const createQuiz = async (req,res) => {
     try {
-        const { title, questions, category, totalQuestions } = req.body;
-        if(!title || !questions || !question || !options || !correctAnswer || !category || !totalQuestions) {
+        const { title, questions, category } = req.body;
+        if(!title || !question || !category) {
             return res.status(400).json({ error:'Please complete all fields.'});
         }
 
@@ -21,7 +21,6 @@ const createQuiz = async (req,res) => {
             title,
             questions,
             category,
-            totalQuestions
         });
 
         res.status(201).json({ message: 'Quiz created successfully!', quiz: newQuiz });
@@ -104,6 +103,7 @@ const submitQuiz = async (req,res) => {
       }
 };
 
+
 const validateQuizSubmission = async (req, res) => {
     const { answers } = req.body;
     if (!Array.isArray(answers)) {
@@ -111,7 +111,8 @@ const validateQuizSubmission = async (req, res) => {
     }
     res.status(200).json({ message: 'Submission is valid.' });
   };
-  
 
-export const quizController = {createQuiz, getAllQuizzes, getQuiz, updateQuiz, deleteQuiz, submitQuiz, validateQuizSubmission};
+
+
+export const quizController = {createQuiz, getAllQuizzes, getQuiz, updateQuiz, deleteQuiz, submitQuiz, validateQuizSubmission, newQuiz};
 

@@ -15,13 +15,13 @@ const submitResult = async (req, res) => {
       }
     });
 
-    const result = await Result.create({
+    const resultData = {
       quizId,
-      userId,
       score,
-      total: quiz.questions.length,
-      answers,
-    });
+      total: quiz.questions.length, answers,
+    };
+    if (userId) resultData.userId = userId;
+    const result = await Result.create(resultData);
 
     res.status(201).json({ message: 'Result saved', result });
   } catch (err) {
