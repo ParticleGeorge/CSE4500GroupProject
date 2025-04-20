@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Take a Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer>
+    const quiz = {
+      title: "Example Quiz",
+      questions: [
+        {
+          type: "truefalse",
+          question: "The sky is blue.",
+          correctAnswer: "true"
+        },
+        {
+          type: "multiple",
+          question: "What is the capital of France?",
+          options: {
+            A: "Berlin",
+            B: "Madrid",
+            C: "Paris",
+            D: "London"
+          },
+          correctAnswer: "C"
+        }
+      ]
+    };
+
+    function loadQuiz() {
+      const container = document.getElementById("quiz-container");
+      let html = `<h2>${quiz.title}</h2><form id="quiz-form">`;
+
+      quiz.questions.forEach((q, i) => {
+        html += `<div class="question-block"><p><strong>Q${i + 1}:</strong> ${q.question}</p>`;
+
+        if (q.type === "truefalse") {
+          html += `
+            <label><input type="radio" name="q${i}" value="true" /> True</label>
+            <label><input type="radio" name="q${i}" value="false" /> False</label>`;
+        } else if (q.type === "multiple") {
+          for (let [key, val] of Object.entries(q.options)) {
+            html += `<label><input type="radio" name="q${i}" value="${key}" /> ${key}: ${val}</label><br/>`;
+          }
+        }
+
+        html += `</div>`;
+      });
+
+      html += `<button type="submit">Submit</button></form><div id="result"></div>`;
+      container.innerHTML = html;
+
+      document.getElementById("quiz-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        gradeQuiz();
+      });
+    }
+
+    function gradeQuiz() {
+      const form = document.forms["quiz-form"];
+      let score = 0;
+      quiz.questions.forEach((q, i) => {
+        const userAnswer = form[`q${i}`].value;
+        if (userAnswer === q.correctAnswer) {
+          score++;
+        }
+      });
+
+      document.getElementById("result").innerHTML = `<h3>You scored ${score} out of ${quiz.questions.length}</h3>`;
+    }
+
+    window.onload = loadQuiz;
+  </script>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">Online Quizzes</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="makequiz.html">Make a Quiz</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div id="quiz-container"></div>
+  </main>
+</body>
+</html>

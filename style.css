@@ -57,3 +57,57 @@ main {
   color: #333;
 }
 
+.quiz-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8vh; /* Moves everything to upper third */
+}
+
+.quiz-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#quiz-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.question-block {
+  width: 320px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.center-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.center-buttons button {
+  width: 220px;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+  background-color: #544caf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.center-buttons button:hover {
+  background-color: #453f99;
+}
