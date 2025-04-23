@@ -114,5 +114,5 @@ const validateQuizSubmission = async (req, res) => {
 
 
 
-export const quizController = {createQuiz, getAllQuizzes, getQuiz, updateQuiz, deleteQuiz, submitQuiz, validateQuizSubmission, newQuiz};
+export const quizController = {createQuiz, getAllQuizzes, getQuiz, updateQuiz, deleteQuiz, submitQuiz, validateQuizSubmission};
 

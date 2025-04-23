@@ -30,5 +30,27 @@
       <button type="submit">Login</button>
     </form>
   </main>
+  <script>
+    document.querySelector(".login-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const [username, password] = Array.from(document.querySelectorAll(".login-form input")).map(i => i.value);
+    
+      const res = await fetch("http://localhost:3000/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+    
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        alert("Login successful!");
+        window.location.href = "account.html";
+      } else {
+        alert(data.error);
+      }
+    });
+    </script>
 </body>
 </html>

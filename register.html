@@ -27,11 +27,31 @@
       <input type="text" placeholder="First Name" required />
       <input type="text" placeholder="Last Name" required />
       <input type="email" placeholder="Email" required />
-      <input type="tel" placeholder="Phone Number" required />
       <input type="text" placeholder="Username" required />
       <input type="password" placeholder="Password" required />
       <button type="submit">Register</button>
     </form>
   </main>
+  <script>
+    document.querySelector(".register-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const inputs = document.querySelectorAll(".register-form input");
+      const [firstName, lastName, email, username, password] = Array.from(inputs).map(i => i.value);
+    
+      const res = await fetch("http://localhost:3000/api/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, email, username, password }),
+      });
+    
+      const data = await res.json();
+      if (res.ok) {
+        alert("Registration successful!");
+        window.location.href = "login.html";
+      } else {
+        alert("Error: " + data.error);
+      }
+    });
+    </script>
 </body>
 </html>

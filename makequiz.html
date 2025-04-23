@@ -124,5 +124,47 @@
     </div>
   </form>
 </main>
+<script>
+  function endQuizCreation() {
+    if (!confirm("Do you want to save your quiz?")) return location.reload();
+  
+    const title = prompt("Enter a quiz title:");
+    const category = prompt("Enter a category:");
+    const questionBlocks = document.querySelectorAll(".question-block");
+  
+    const questions = Array.from(questionBlocks).map((block, i) => {
+      const questionText = block.querySelector(`input[name^=question]`).value;
+      const type = block.querySelector("select[name^=type]").value;
+      let options = [], correctAnswer;
+  
+      if (type === "truefalse") {
+        options = ["True", "False"];
+        correctAnswer = block.querySelector(`select[name^=answer]`).value === "true" ? 0 : 1;
+      } else {
+        options = ["optA", "optB", "optC", "optD"].map(opt =>
+          block.querySelector(`input[name^=${opt}]`).value
+        );
+        correctAnswer = ["A", "B", "C", "D"].indexOf(block.querySelector(`input[name^=answer]`).value.toUpperCase());
+      }
+  
+      return { question: questionText, options, correctAnswer };
+    });
+  
+    fetch("http://localhost:3000/api/quizzes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, category, questions }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.quiz) {
+        alert("Quiz saved successfully!");
+        window.location.href = "index.html";
+      } else {
+        alert("Error: " + data.error);
+      }
+    });
+  }
+  </script>
 </body>
 </html>

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Take a Quiz</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer>
-    const quiz = {
+<script>    
+  /*const quiz = {
       title: "Example Quiz",
       questions: [
         {
@@ -26,52 +26,8 @@
           correctAnswer: "C"
         }
       ]
-    };
-
-    function loadQuiz() {
-      const container = document.getElementById("quiz-container");
-      let html = `<h2>${quiz.title}</h2><form id="quiz-form">`;
-
-      quiz.questions.forEach((q, i) => {
-        html += `<div class="question-block"><p><strong>Q${i + 1}:</strong> ${q.question}</p>`;
-
-        if (q.type === "truefalse") {
-          html += `
-            <label><input type="radio" name="q${i}" value="true" /> True</label>
-            <label><input type="radio" name="q${i}" value="false" /> False</label>`;
-        } else if (q.type === "multiple") {
-          for (let [key, val] of Object.entries(q.options)) {
-            html += `<label><input type="radio" name="q${i}" value="${key}" /> ${key}: ${val}</label><br/>`;
-          }
-        }
-
-        html += `</div>`;
-      });
-
-      html += `<button type="submit">Submit</button></form><div id="result"></div>`;
-      container.innerHTML = html;
-
-      document.getElementById("quiz-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-        gradeQuiz();
-      });
-    }
-
-    function gradeQuiz() {
-      const form = document.forms["quiz-form"];
-      let score = 0;
-      quiz.questions.forEach((q, i) => {
-        const userAnswer = form[`q${i}`].value;
-        if (userAnswer === q.correctAnswer) {
-          score++;
-        }
-      });
-
-      document.getElementById("result").innerHTML = `<h3>You scored ${score} out of ${quiz.questions.length}</h3>`;
-    }
-
-    window.onload = loadQuiz;
-  </script>
+    };*/
+</script>
 </head>
 <body>
   <header>
@@ -90,5 +46,83 @@
   <main>
     <div id="quiz-container"></div>
   </main>
+  <script>
+    let allQuizzes = [];
+    
+    async function fetchQuizzes() {
+      try {
+        const res = await fetch("http://localhost:3000/api/quizzes");
+        const quizzes = await res.json();
+        allQuizzes = quizzes;
+    
+        const select = document.createElement("select");
+        select.id = "quiz-selector";
+        select.innerHTML = `<option disabled selected>Select a quiz</option>`;
+        quizzes.forEach((quiz, index) => {
+          select.innerHTML += `<option value="${index}">${quiz.title} (${quiz.category})</option>`;
+        });
+    
+        select.addEventListener("change", function () {
+          const selectedQuiz = allQuizzes[this.value];
+          renderQuiz(selectedQuiz);
+        });
+    
+        const container = document.getElementById("quiz-container");
+        container.innerHTML = "<h2>Choose a Quiz</h2>";
+        container.appendChild(select);
+    
+      } catch (err) {
+        console.error("Error loading quizzes:", err);
+        document.getElementById("quiz-container").innerHTML = "<p>Failed to load quizzes.</p>";
+      }
+    }
+    
+    function renderQuiz(quiz) {
+      const container = document.getElementById("quiz-container");
+      let html = `<h2>${quiz.title}</h2><form id="quiz-form">`;
+    
+      quiz.questions.forEach((q, i) => {
+        html += `<div class="question-block"><p><strong>Q${i + 1}:</strong> ${q.question}</p>`;
+        q.options.forEach((opt, idx) => {
+          html += `<label><input type="radio" name="q${i}" value="${idx}" /> ${opt}</label><br/>`;
+        });
+        html += `</div>`;
+      });
+    
+      html += `<button type="submit">Submit</button></form><div id="result"></div>`;
+      container.innerHTML = html;
+    
+      document.getElementById("quiz-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        gradeQuiz(quiz._id, quiz.questions.length);
+      });
+    }
+    
+    async function gradeQuiz(quizId, totalQuestions) {
+      const form = document.forms["quiz-form"];
+      const answers = [];
+    
+      for (let i = 0; i < totalQuestions; i++) {
+        const answer = form[`q${i}`].value;
+        answers.push(Number(answer));
+      }
+    
+      try {
+        const res = await fetch("http://localhost:3000/api/quizzes/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ quizId, answers }),
+        });
+    
+        const data = await res.json();
+        document.getElementById("result").innerHTML = `<h3>You scored ${data.score} out of ${data.total}</h3>`;
+      } catch (err) {
+        console.error("Error submitting quiz:", err);
+        document.getElementById("result").innerHTML = "<p>Submission failed.</p>";
+      }
+    }
+    
+    window.onload = fetchQuizzes;
+    </script>
 </body>
 </html>

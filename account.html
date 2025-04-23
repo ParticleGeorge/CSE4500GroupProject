@@ -27,9 +27,23 @@
       <p><strong>First Name:</strong> <span id="first-name">[placeholder]</span></p>
       <p><strong>Last Name:</strong> <span id="last-name">[placeholder]</span></p>
       <p><strong>Email:</strong> <span id="email">[placeholder]</span></p>
-      <p><strong>Phone Number:</strong> <span id="phone">[placeholder]</span></p>
       <p><strong>Username:</strong> <span id="username">[placeholder]</span></p>
     </div>
   </main>
+  <script>
+    window.onload = () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        alert("You are not logged in.");
+        window.location.href = "login.html";
+        return;
+      }
+    
+      document.getElementById("first-name").textContent = user.firstName;
+      document.getElementById("last-name").textContent = user.lastName;
+      document.getElementById("email").textContent = user.email;
+      document.getElementById("username").textContent = user.username;
+    };
+    </script>
 </body>
 </html>
