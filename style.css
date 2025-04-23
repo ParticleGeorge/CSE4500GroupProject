@@ -111,3 +111,108 @@ main {
 .center-buttons button:hover {
   background-color: #453f99;
 }
+
+/* Login */
+.login-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.login-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form button {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #544caf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #453ea0;
+}
+
+/* Register */ 
+
+.register-form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.register-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.register-form button {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #544caf;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.register-form button:hover {
+  background-color: #453ea0;
+}
+
+/* Account */
+
+.account-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 8vh;
+}
+
+.account-info {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.account-info h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.account-info p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
