@@ -14,7 +14,7 @@ header {
   background-color: #544caf;
   padding: 15px 30px;
   color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
@@ -31,7 +31,14 @@ header {
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+}
+
+.nav-links li {
+  margin-right: 20px; /* Add spacing between list items */
+}
+
+.nav-links li:last-child {
+  margin-right: 0; /* Remove margin from the last item */
 }
 
 .nav-links a {
@@ -117,7 +124,7 @@ main {
   background-color: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 300px;
   display: flex;
   flex-direction: column;
@@ -150,13 +157,13 @@ main {
   background-color: #453ea0;
 }
 
-/* Register */ 
+/* Register */
 
 .register-form {
   background-color: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 320px;
   display: flex;
   flex-direction: column;
@@ -203,7 +210,7 @@ main {
   padding: 30px;
   border-radius: 10px;
   width: 350px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .account-info h2 {

@@ -1,49 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>User Account - Online Quizzes</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Online Quizzes</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Register</a></li>
-        <li><a href="makequiz.html">Make a Quiz</a></li>
-        <li><a href="takequiz.html">Take Quiz</a></li>
-        <li><a href="account.html">Account</a></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Account - Online Quizzes</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">Online Quizzes</div>
+        <ul class="nav-links">
+          <li id="login-item">
+            <a href="login.html" id="login-link">Login</a>
+          </li>
+          <li id="register-item">
+            <a href="register.html" id="register-link">Register</a>
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="makequiz.html">Make a Quiz</a></li>
+          <li><a href="takequiz.html">Take Quiz</a></li>
+          <li><a href="account.html">Account</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <main class="account-page">
-    <div class="account-info">
-      <h2>Your Account</h2>
-      <p><strong>First Name:</strong> <span id="first-name">[placeholder]</span></p>
-      <p><strong>Last Name:</strong> <span id="last-name">[placeholder]</span></p>
-      <p><strong>Email:</strong> <span id="email">[placeholder]</span></p>
-      <p><strong>Username:</strong> <span id="username">[placeholder]</span></p>
-    </div>
-  </main>
-  <script>
-    window.onload = () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
-        alert("You are not logged in.");
-        window.location.href = "login.html";
-        return;
-      }
-    
-      document.getElementById("first-name").textContent = user.firstName;
-      document.getElementById("last-name").textContent = user.lastName;
-      document.getElementById("email").textContent = user.email;
-      document.getElementById("username").textContent = user.username;
-    };
+    <main class="account-page">
+      <div class="account-info">
+        <h2>Your Account</h2>
+        <p>
+          <strong>First Name:</strong>
+          <span id="first-name">[placeholder]</span>
+        </p>
+        <p>
+          <strong>Last Name:</strong> <span id="last-name">[placeholder]</span>
+        </p>
+        <p><strong>Email:</strong> <span id="email">[placeholder]</span></p>
+        <p>
+          <strong>Username:</strong> <span id="username">[placeholder]</span>
+        </p>
+      </div>
+    </main>
+    <script>
+      window.onload = () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        // If a user is logged in, hide the "Login" and "Register" links
+        if (user) {
+          document.getElementById('login-item').style.display = 'none';
+          document.getElementById('register-item').style.display = 'none';
+        }
+
+        if (!user) {
+          alert('You are not logged in.');
+          window.location.href = 'login.html';
+          return;
+        }
+
+        document.getElementById('first-name').textContent = user.firstName;
+        document.getElementById('last-name').textContent = user.lastName;
+        document.getElementById('email').textContent = user.email;
+        document.getElementById('username').textContent = user.username;
+      };
     </script>
-</body>
+  </body>
 </html>

@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Make a Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make a Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
 
-    h2.page-title {
-      text-align: center;
-      font-size: 36px;
-      font-weight: bold;
-      margin-top: 40px;
-      margin-bottom: 30px;
-    }
+      h2.page-title {
+        text-align: center;
+        font-size: 36px;
+        font-weight: bold;
+        margin-top: 40px;
+        margin-bottom: 30px;
+      }
 
-    #quiz-form {
-      max-width: 700px;
-      margin: 0 auto;
-    }
+      #quiz-form {
+        max-width: 700px;
+        margin: 0 auto;
+      }
 
-    .question-block {
-      margin-bottom: 20px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background-color: #f9f9f9;
-    }
+      .question-block {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #f9f9f9;
+      }
 
-    .center-buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 30px;
-    }
+      .center-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px;
+      }
 
-    .center-buttons button {
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
-  <script defer>
-    let questionCount = 0;
+      .center-buttons button {
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+    <script defer>
+      let questionCount = 0;
 
-    function addQuestion() {
-      questionCount++;
-      const container = document.getElementById("questions-container");
-      const questionHTML = `
+      function addQuestion() {
+        questionCount++;
+        const container = document.getElementById('questions-container');
+        const questionHTML = `
         <div class="question-block">
           <label>Question ${questionCount}:</label><br />
           <input type="text" name="question${questionCount}" placeholder="Enter your question" /><br />
@@ -64,21 +64,21 @@
             <!-- Options will load here -->
           </div>
         </div>`;
-      container.insertAdjacentHTML('beforeend', questionHTML);
-    }
+        container.insertAdjacentHTML('beforeend', questionHTML);
+      }
 
-    function handleTypeChange(selectElem, index) {
-      const container = document.getElementById(`options${index}`);
-      if (selectElem.value === 'truefalse') {
-        container.innerHTML = `
+      function handleTypeChange(selectElem, index) {
+        const container = document.getElementById(`options${index}`);
+        if (selectElem.value === 'truefalse') {
+          container.innerHTML = `
           <label>Correct Answer:</label>
           <select name="answer${index}">
             <option value="true">True</option>
             <option value="false">False</option>
           </select>
         `;
-      } else {
-        container.innerHTML = `
+        } else {
+          container.innerHTML = `
           <label>Option A:</label> <input type="text" name="optA${index}" /><br />
           <label>Option B:</label> <input type="text" name="optB${index}" /><br />
           <label>Option C:</label> <input type="text" name="optC${index}" /><br />
@@ -86,85 +86,114 @@
           <label>Correct Answer (A/B/C/D):</label>
           <input type="text" name="answer${index}" maxlength="1" />
         `;
+        }
       }
-    }
 
-    function endQuizCreation() {
-      if (confirm("Do you want to save your quiz?")) {
-        alert("Changes saved (simulated).");
-      } else {
-        alert("Changes discarded.");
-        location.reload();
+      function endQuizCreation() {
+        if (confirm('Do you want to save your quiz?')) {
+          alert('Changes saved (simulated).');
+        } else {
+          alert('Changes discarded.');
+          location.reload();
+        }
       }
-    }
-  </script>
-</head>
-<body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Online Quizzes</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="login.html">Login</a></li>
-        <li><a href="register.html">Register</a></li>
-        <li><a href="makequiz.html">Make a Quiz</a></li>
-        <li><a href="takequiz.html">Take Quiz</a></li>
-        <li><a href="account.html">Account</a></li>
-      </ul>
-    </nav>
-  </header>
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">Online Quizzes</div>
+        <ul class="nav-links">
+          <li id="login-item">
+            <a href="login.html" id="login-link">Login</a>
+          </li>
+          <li id="register-item">
+            <a href="register.html" id="register-link">Register</a>
+          </li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="makequiz.html">Make a Quiz</a></li>
+          <li><a href="takequiz.html">Take Quiz</a></li>
+          <li><a href="account.html">Account</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<main class="quiz-page">
-  <h2 class="quiz-title">Create a Quiz</h2>
-  <form id="quiz-form">
-    <div id="questions-container"></div>
-    <div class="center-buttons">
-      <button type="button" onclick="addQuestion()">Add Another Question</button>
-      <button type="button" onclick="endQuizCreation()">End Quiz Creation</button>
-    </div>
-  </form>
-</main>
-<script>
-  function endQuizCreation() {
-    if (!confirm("Do you want to save your quiz?")) return location.reload();
-  
-    const title = prompt("Enter a quiz title:");
-    const category = prompt("Enter a category:");
-    const questionBlocks = document.querySelectorAll(".question-block");
-  
-    const questions = Array.from(questionBlocks).map((block, i) => {
-      const questionText = block.querySelector(`input[name^=question]`).value;
-      const type = block.querySelector("select[name^=type]").value;
-      let options = [], correctAnswer;
-  
-      if (type === "truefalse") {
-        options = ["True", "False"];
-        correctAnswer = block.querySelector(`select[name^=answer]`).value === "true" ? 0 : 1;
-      } else {
-        options = ["optA", "optB", "optC", "optD"].map(opt =>
-          block.querySelector(`input[name^=${opt}]`).value
-        );
-        correctAnswer = ["A", "B", "C", "D"].indexOf(block.querySelector(`input[name^=answer]`).value.toUpperCase());
+    <main class="quiz-page">
+      <h2 class="quiz-title">Create a Quiz</h2>
+      <form id="quiz-form">
+        <div id="questions-container"></div>
+        <div class="center-buttons">
+          <button type="button" onclick="addQuestion()">
+            Add Another Question
+          </button>
+          <button type="button" onclick="endQuizCreation()">
+            End Quiz Creation
+          </button>
+        </div>
+      </form>
+    </main>
+    <script>
+      function endQuizCreation() {
+        if (!confirm('Do you want to save your quiz?'))
+          return location.reload();
+
+        const title = prompt('Enter a quiz title:');
+        const category = prompt('Enter a category:');
+        const questionBlocks = document.querySelectorAll('.question-block');
+
+        const questions = Array.from(questionBlocks).map((block, i) => {
+          const questionText = block.querySelector(
+            `input[name^=question]`
+          ).value;
+          const type = block.querySelector('select[name^=type]').value;
+          let options = [],
+            correctAnswer;
+
+          if (type === 'truefalse') {
+            options = ['True', 'False'];
+            correctAnswer =
+              block.querySelector(`select[name^=answer]`).value === 'true'
+                ? 0
+                : 1;
+          } else {
+            options = ['optA', 'optB', 'optC', 'optD'].map(
+              (opt) => block.querySelector(`input[name^=${opt}]`).value
+            );
+            correctAnswer = ['A', 'B', 'C', 'D'].indexOf(
+              block.querySelector(`input[name^=answer]`).value.toUpperCase()
+            );
+          }
+
+          return { question: questionText, options, correctAnswer };
+        });
+
+        fetch('http://localhost:3000/api/quizzes', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, category, questions }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.quiz) {
+              alert('Quiz saved successfully!');
+              window.location.href = 'index.html';
+            } else {
+              alert('Error: ' + data.error);
+            }
+          });
       }
-  
-      return { question: questionText, options, correctAnswer };
-    });
-  
-    fetch("http://localhost:3000/api/quizzes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, category, questions }),
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.quiz) {
-        alert("Quiz saved successfully!");
-        window.location.href = "index.html";
-      } else {
-        alert("Error: " + data.error);
-      }
-    });
-  }
-  </script>
-</body>
+    </script>
+
+    <script>
+      window.onload = () => {
+        const user = JSON.parse(localStorage.getItem('user'));
+
+        // If a user is logged in, hide the "Login" and "Register" links
+        if (user) {
+          document.getElementById('login-item').style.display = 'none';
+          document.getElementById('register-item').style.display = 'none';
+        }
+      };
+    </script>
+  </body>
 </html>
