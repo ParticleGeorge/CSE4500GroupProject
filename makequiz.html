@@ -52,19 +52,25 @@
         questionCount++;
         const container = document.getElementById('questions-container');
         const questionHTML = `
-        <div class="question-block">
-          <label>Question ${questionCount}:</label><br />
-          <input type="text" name="question${questionCount}" placeholder="Enter your question" /><br />
-          <label>Type:</label>
-          <select name="type${questionCount}" onchange="handleTypeChange(this, ${questionCount})">
-            <option value="truefalse">True/False</option>
-            <option value="multiple">Multiple Choice</option>
-          </select>
-          <div id="options${questionCount}">
-            <!-- Options will load here -->
-          </div>
-        </div>`;
+          <div class="question-block">
+            <label>Question ${questionCount}:</label><br />
+            <input type="text" name="question${questionCount}" placeholder="Enter your question" /><br />
+            <label>Type:</label>
+            <select name="type${questionCount}" onchange="handleTypeChange(this, ${questionCount})">
+              <option value="truefalse">True/False</option>
+              <option value="multiple">Multiple Choice</option>
+            </select>
+            <div id="options${questionCount}">
+              <!-- Options will load here -->
+            </div>
+          </div>`;
         container.insertAdjacentHTML('beforeend', questionHTML);
+
+        // Automatically call handleTypeChange for the default type (truefalse)
+        const defaultSelect = document.querySelector(
+          `select[name="type${questionCount}"]`
+        );
+        handleTypeChange(defaultSelect, questionCount);
       }
 
       function handleTypeChange(selectElem, index) {
