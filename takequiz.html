@@ -34,12 +34,8 @@
       <nav class="navbar">
         <div class="logo">Online Quizzes</div>
         <ul class="nav-links">
-          <li id="login-item">
-            <a href="login.html" id="login-link">Login</a>
-          </li>
-          <li id="register-item">
-            <a href="register.html" id="register-link">Register</a>
-          </li>
+          <li id="login-item"><a href="login.html">Login</a></li>
+          <li id="register-item"><a href="register.html">Register</a></li>
           <li><a href="index.html">Home</a></li>
           <li><a href="makequiz.html">Make a Quiz</a></li>
           <li><a href="takequiz.html">Take Quiz</a></li>
@@ -50,6 +46,7 @@
     <main>
       <div id="quiz-container"></div>
     </main>
+
     <script>
       let allQuizzes = [];
 
@@ -133,10 +130,6 @@
         }
       }
 
-      window.onload = fetchQuizzes;
-    </script>
-
-    <script>
       window.onload = () => {
         const user = JSON.parse(localStorage.getItem('user'));
 
@@ -145,6 +138,9 @@
           document.getElementById('login-item').style.display = 'none';
           document.getElementById('register-item').style.display = 'none';
         }
+
+        // Fetch quizzes after checking user status
+        fetchQuizzes();
       };
     </script>
   </body>

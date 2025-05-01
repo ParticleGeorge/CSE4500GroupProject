@@ -39,6 +39,8 @@
         <p>
           <strong>Username:</strong> <span id="username">[placeholder]</span>
         </p>
+
+        <button id="sign-out-button" class="sign-out-button">Sign Out</button>
       </div>
     </main>
     <script>
@@ -61,6 +63,18 @@
         document.getElementById('last-name').textContent = user.lastName;
         document.getElementById('email').textContent = user.email;
         document.getElementById('username').textContent = user.username;
+
+        // Add functionality to the Sign Out button
+        document
+          .getElementById('sign-out-button')
+          .addEventListener('click', () => {
+            // Clear user data from localStorage
+            localStorage.removeItem('user');
+
+            // Redirect to the login page
+            alert('You have been signed out.');
+            window.location.href = 'login.html';
+          });
       };
     </script>
   </body>

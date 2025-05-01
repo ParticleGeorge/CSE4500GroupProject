@@ -223,3 +223,19 @@ main {
   font-size: 1rem;
   margin-bottom: 10px;
 }
+
+.sign-out-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #544caf;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px; /* Optional: Add rounded corners */
+  transition: background-color 0.3s ease; /* Optional: Add hover effect */
+}
+
+.sign-out-button:hover {
+  background-color: #3c3a9f; /* Optional: Darker shade on hover */
+}
