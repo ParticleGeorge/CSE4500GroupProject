@@ -3,7 +3,7 @@ import Quiz from '../model/Quiz.js';
 const createQuiz = async (req,res) => {
     try {
         const { title, questions, category } = req.body;
-        if(!title || !question || !category) {
+        if(!title || !questions || !category) {
             return res.status(400).json({ error:'Please complete all fields.'});
         }
 
